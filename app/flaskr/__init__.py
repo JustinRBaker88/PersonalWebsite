@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import (Flask, g, url_for)
 
 
 def create_app(test_config=None):
@@ -41,5 +41,10 @@ def create_app(test_config=None):
     from . import blog
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
+
+    @app.context_processor
+    def inject_navList():
+        navLinks = {'links' : [{'name' : 'Home', 'url' : url_for('index')}, {'name' : 'Hello World', 'url' : url_for('hello')}]}
+        return  dict(navLinks=navLinks)
     
     return app
