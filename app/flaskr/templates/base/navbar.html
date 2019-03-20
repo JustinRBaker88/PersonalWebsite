@@ -1,0 +1,22 @@
+<nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top">
+    <a class="navbar-brand" href="#" >
+        <img src="{{ url_for('static', filename='Images/nav_icon.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Baker Codes
+    </a>
+    
+    <ul class="navbar-nav">
+    {% for link in navLinks['links'] %}
+        <li class="nav-item mr-auto"><a class="nav-link" href="{{ link['url'] }}">{{ link['name'] }}</a></li>
+    {% endfor %}
+    </ul>
+    <ul class="navbar-nav flex-row ml-md-auto">
+    {% if g.user %}
+    <li class="nav-item p-2">{{ g.user['username'] }}</li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+    {% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
+    {% endif %}
+    </ul>
+    
+</nav>
